@@ -18,14 +18,14 @@ export class UserService {
   }
 
   findOne(id: string) {
-    return `This action returns a #${id} user`;
+    return this.userModel.findById(id);
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+    return this.userModel.findByIdAndUpdate(id, updateUserInput, { new: true });
   }
 
   remove(id: string) {
-    return `This action removes a #${id} user`;
+    return this.userModel.findByIdAndRemove(id);
   }
 }
