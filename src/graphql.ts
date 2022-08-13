@@ -8,6 +8,19 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export class CreateTaskInput {
+    task: string;
+    status?: Nullable<boolean>;
+    author: string;
+}
+
+export class UpdateTaskInput {
+    id: string;
+    task?: Nullable<string>;
+    status?: Nullable<boolean>;
+    author?: Nullable<string>;
+}
+
 export class CreateUserInput {
     name: string;
     email: string;
@@ -21,25 +34,42 @@ export class UpdateUserInput {
     password?: Nullable<string>;
 }
 
-export class User {
+export class Task {
     id: string;
-    name: string;
-    email: string;
-    password?: Nullable<string>;
+    task: string;
+    status?: Nullable<boolean>;
+    author: string;
 }
 
 export abstract class IQuery {
+    abstract tasks(): Nullable<Task>[] | Promise<Nullable<Task>[]>;
+
+    abstract task(id: string): Nullable<Task> | Promise<Nullable<Task>>;
+
     abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
 
     abstract user(id: string): Nullable<User> | Promise<Nullable<User>>;
 }
 
 export abstract class IMutation {
+    abstract createTask(createTaskInput: CreateTaskInput): Task | Promise<Task>;
+
+    abstract updateTask(updateTaskInput: UpdateTaskInput): Task | Promise<Task>;
+
+    abstract removeTask(id: string): Nullable<Task> | Promise<Nullable<Task>>;
+
     abstract createUser(createUserInput: CreateUserInput): User | Promise<User>;
 
     abstract updateUser(updateUserInput: UpdateUserInput): User | Promise<User>;
 
     abstract removeUser(id: string): Nullable<User> | Promise<Nullable<User>>;
+}
+
+export class User {
+    id: string;
+    name: string;
+    email: string;
+    password?: Nullable<string>;
 }
 
 type Nullable<T> = T | null;
