@@ -14,8 +14,16 @@ export class TaskService {
     return task.populate('author');
   }
 
-  findAll() {
-    return this.taskModel.find().populate('author');
+  findAll(author?: string, status?: boolean) {
+    const query = {};
+    if (author) {
+      query['author'] = author;
+    }
+
+    if (status) {
+      query['status'] = status;
+    }
+    return this.taskModel.find(query).populate('author');
   }
 
   findOne(id: string) {

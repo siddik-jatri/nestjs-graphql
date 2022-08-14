@@ -26,7 +26,7 @@ input UpdateTaskInput {
 }
 
 type Query {
-  tasks: [Task]!
+  tasks(author: String, status: Boolean): [Task]!
   task(id: String!): Task
   paginateTasks(page: Int, limit: Int): PaginateTasks!
 }

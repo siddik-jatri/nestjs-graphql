@@ -49,7 +49,7 @@ export class PaginateTasks {
 }
 
 export abstract class IQuery {
-    abstract tasks(): Nullable<Task>[] | Promise<Nullable<Task>[]>;
+    abstract tasks(author?: Nullable<string>, status?: Nullable<boolean>): Nullable<Task>[] | Promise<Nullable<Task>[]>;
 
     abstract task(id: string): Nullable<Task> | Promise<Nullable<Task>>;
 

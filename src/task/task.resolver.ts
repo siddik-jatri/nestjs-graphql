@@ -13,8 +13,11 @@ export class TaskResolver {
   }
 
   @Query('tasks')
-  findAll() {
-    return this.taskService.findAll();
+  findAll(
+    @Args('author', { nullable: true }) author?: string | null,
+    @Args('status', { nullable: true }) status?: boolean | null,
+  ) {
+    return this.taskService.findAll(author, status);
   }
 
   @Query('task')
