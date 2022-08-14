@@ -29,4 +29,15 @@ export class TaskService {
   remove(id: string) {
     return this.taskModel.findByIdAndRemove(id).populate('author');
   }
+
+  async paginateTasks(page: number, limit: number) {
+    const tasks = await this.taskModel.find().limit(limit).skip((page - 1) * limit).populate('author');
+    const count = await this.taskModel.countDocuments();
+    return {
+      count,
+      tasks,
+      totalPages: Math.ceil(count / limit),
+      currentPage: page
+    }
+  }
 }

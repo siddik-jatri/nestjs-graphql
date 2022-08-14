@@ -41,10 +41,19 @@ export class Task {
     author: User;
 }
 
+export class PaginateTasks {
+    tasks: Nullable<Task>[];
+    count: number;
+    totalPages: number;
+    currentPage: number;
+}
+
 export abstract class IQuery {
     abstract tasks(): Nullable<Task>[] | Promise<Nullable<Task>[]>;
 
     abstract task(id: string): Nullable<Task> | Promise<Nullable<Task>>;
+
+    abstract paginateTasks(page?: Nullable<number>, limit?: Nullable<number>): PaginateTasks | Promise<PaginateTasks>;
 
     abstract users(): Nullable<User>[] | Promise<Nullable<User>[]>;
 

@@ -5,6 +5,13 @@ type Task {
   author: User!
 }
 
+type PaginateTasks {
+  tasks: [Task]!
+  count: Int!
+  totalPages: Int!
+  currentPage: Int!
+}
+
 input CreateTaskInput {
   task: String!
   status: Boolean
@@ -21,6 +28,7 @@ input UpdateTaskInput {
 type Query {
   tasks: [Task]!
   task(id: String!): Task
+  paginateTasks(page: Int, limit: Int): PaginateTasks!
 }
 
 type Mutation {

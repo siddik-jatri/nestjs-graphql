@@ -22,6 +22,15 @@ export class TaskResolver {
     return this.taskService.findOne(id);
   }
 
+  @Query('paginateTasks')
+  paginateTasks(
+    @Args('page') page: number,
+    @Args('limit') limit: number,
+  ) {
+    return this.taskService.paginateTasks(page, limit);
+  }
+
+
   @Mutation('updateTask')
   update(@Args('updateTaskInput') updateTaskInput: UpdateTaskInput) {
     return this.taskService.update(updateTaskInput.id, updateTaskInput);
