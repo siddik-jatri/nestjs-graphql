@@ -38,7 +38,7 @@ export class Task {
     id: string;
     task: string;
     status?: Nullable<boolean>;
-    author: string;
+    author: User;
 }
 
 export abstract class IQuery {

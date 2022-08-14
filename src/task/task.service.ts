@@ -9,23 +9,24 @@ import { Model } from 'mongoose';
 export class TaskService {
   constructor(@InjectModel(Task.name) private taskModel: Model<TaskDocument>) {}
 
-  create(createTaskInput: CreateTaskInput) {
-    return this.taskModel.create(createTaskInput);
+  async create(createTaskInput: CreateTaskInput) {
+    const task = await this.taskModel.create(createTaskInput);
+    return task.populate('author');
   }
 
   findAll() {
-    return this.taskModel.find();
+    return this.taskModel.find().populate('author');
   }
 
   findOne(id: string) {
-    return this.taskModel.findById(id);
+    return this.taskModel.findById(id).populate('author');
   }
 
   update(id: string, updateTaskInput: UpdateTaskInput) {
-    return this.taskModel.findByIdAndUpdate(id, updateTaskInput, { new: true });
+    return this.taskModel.findByIdAndUpdate(id, updateTaskInput, { new: true, populate: 'author' });
   }
 
   remove(id: string) {
-    return this.taskModel.findByIdAndRemove(id);
+    return this.taskModel.findByIdAndRemove(id).populate('author');
   }
 }

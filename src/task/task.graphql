@@ -2,7 +2,7 @@ type Task {
   id: String!
   task: String!
   status: Boolean
-  author: String!
+  author: User!
 }
 
 input CreateTaskInput {
