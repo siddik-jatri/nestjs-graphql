@@ -14,11 +14,11 @@ export class UserService {
   }
 
   findAll() {
-    return this.userModel.find();
+    return this.userModel.find().populate('tasks');
   }
 
   findOne(id: string) {
-    return this.userModel.findById(id);
+    return this.userModel.findById(id).populate('tasks');
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {
