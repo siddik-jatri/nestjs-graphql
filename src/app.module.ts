@@ -5,6 +5,9 @@ import { ApolloServerPluginLandingPageLocalDefault } from 'apollo-server-core';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { MongooseModule } from '@nestjs/mongoose';
 import { TaskModule } from './task/task.module';
+import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from "@nestjs/config";
+import { config } from "./config";
 
 @Module({
   imports: [
@@ -17,6 +20,11 @@ import { TaskModule } from './task/task.module';
     UserModule,
     MongooseModule.forRoot('mongodb://localhost:27017/npg'),
     TaskModule,
+    AuthModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [ config ],
+    }),
   ],
   controllers: [],
   providers: [],

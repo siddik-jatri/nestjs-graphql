@@ -36,10 +36,14 @@ export class UserService {
     ]);
   }
 
-  async findOne(id: string) {
+  async findById(id: string) {
     const user = await this.userModel.findById(id).populate('tasks');
     user['totalTask'] = user['tasks'].length
     return user;
+  }
+
+  findByEmail(email: string) {
+    return this.userModel.findOne({ email }, { id: "$_id", name: 1, email: 1, password: 1 }).lean();
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {
