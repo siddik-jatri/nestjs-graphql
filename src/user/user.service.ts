@@ -14,11 +14,32 @@ export class UserService {
   }
 
   findAll() {
-    return this.userModel.find().populate('tasks');
+    return this.userModel.aggregate([
+      {
+        $lookup:{
+          from: "tasks",
+          localField: "_id",
+          foreignField: "author",
+          as: "tasks"
+        }
+      },
+      {
+        $project: {
+          id: "$_id",
+          name: 1,
+          email: 1,
+          totalTask: {
+            $size: "$tasks"
+          }
+        }
+      }
+    ]);
   }
 
-  findOne(id: string) {
-    return this.userModel.findById(id).populate('tasks');
+  async findOne(id: string) {
+    const user = await this.userModel.findById(id).populate('tasks');
+    user['totalTask'] = user['tasks'].length
+    return user;
   }
 
   update(id: string, updateUserInput: UpdateUserInput) {

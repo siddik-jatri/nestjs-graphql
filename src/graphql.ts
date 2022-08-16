@@ -80,6 +80,7 @@ export class User {
     email: string;
     password?: Nullable<string>;
     tasks: Nullable<Task>[];
+    totalTask?: Nullable<number>;
 }
 
 type Nullable<T> = T | null;

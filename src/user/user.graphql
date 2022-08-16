@@ -4,6 +4,7 @@ type User {
   email: String!
   password: String
   tasks: [Task]!
+  totalTask: Int
 }
 
 input CreateUserInput {
