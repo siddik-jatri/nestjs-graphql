@@ -14,8 +14,15 @@ type Auth {
   access_token: String!
 }
 
+type Task {
+  task: String!
+  status: Boolean!
+}
+
 type Query {
   login(loginInput: LoginInput!): Auth!
+  tasks: [Task!]!
+  task(id: String!): Task!
 }
 
 input LoginInput {
@@ -25,10 +32,24 @@ input LoginInput {
 
 type Mutation {
   signup(signupInput: SignupInput!): User!
+  createTask(createTaskInput: CreateTaskInput!): Task!
+  updateTask(updateTaskInput: UpdateTaskInput!): Task!
+  removeTask(id: String!): Task!
 }
 
 input SignupInput {
   name: String!
   email: String!
   password: String!
+}
+
+input CreateTaskInput {
+  task: String!
+  status: Boolean!
+}
+
+input UpdateTaskInput {
+  task: String
+  status: Boolean
+  _id: String!
 }
